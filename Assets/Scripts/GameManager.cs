@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
     public float critterSpawnFreqency = 1.0f;
     public Score scoreDisplay;
     public Timer timer;
+    public SpriteRenderer button;
 
 
     private float lastCritterSpawn = 0;
@@ -45,5 +46,26 @@ public class GameManager : MonoBehaviour {
             lastCritterSpawn = Time.time;
         }
 
+        //update button visibility
+        if (timer.IsTimerRunning() == true)
+        {
+            button.enabled = false;
+        }
+        else // if game is not running
+        {
+            button.enabled = true;
+        }
+
 	}
+
+    private void OnMouseDown()
+    {
+        // only respond id game is not runing
+        if (timer.IsTimerRunning( ) == false)
+        {
+            //start new game!
+            timer.StartTimer();
+            scoreDisplay.ResetScore();
+        }
+    }
 }
